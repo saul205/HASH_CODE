@@ -11,7 +11,7 @@ with open(input) as f_in:
     for line in f_in: # read rest of lines
         matrix.append([x for x in line.split()])
     V = []
-    H = []
+    slides = []
     integercounter = 0
     for element in matrix:
         tmp = []
@@ -23,7 +23,7 @@ with open(input) as f_in:
         if element[0] is 'V':
             V.append(tmp)
         elif element[0] is 'H':
-            H.append(tmp)
+            slides.append(tmp)
         integercounter = integercounter + 1
 
 
@@ -35,7 +35,7 @@ def testoutput():
             for subitem in item:
                 f_out.write("%s " % subitem)
             f_out.write("\n")
-        for item in H:
+        for item in slides:
             for subitem in item:
                 f_out.write("%s " % subitem)
             f_out.write("\n")
