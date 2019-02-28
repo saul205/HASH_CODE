@@ -10,14 +10,13 @@ with open(input) as f_in:
     matrix = []
     for line in f_in: # read rest of lines
         matrix.append([x for x in line.split()])
-
     V = []
     H = []
     integercounter = 0
     for element in matrix:
         tmp = []
         tmptags = []
-        tmp.append(integercounter)
+        tmp.append(str(integercounter))
         for i in range(int(element[1])):
             tmptags.append(element[2+i])
         tmp.append(tmptags)
@@ -44,7 +43,7 @@ def testoutput():
 
 def main():
     #Codigo aqui
-    #testoutput()
+    testoutput()
 
 
 if __name__ == '__main__':
