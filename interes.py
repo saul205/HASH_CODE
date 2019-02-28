@@ -1,3 +1,4 @@
+import random as r
 
 def factor_interes(slide1, slide2):
     esta = 0
@@ -12,10 +13,10 @@ def enlazar():
     salida = []
 
     salida.append(slides.pop(r.randint(0, len(slides)-1)))
-    
+
     while len(slides) > 1:
         encontrado = False
-        
+
         for i in slides:
             if not encontrado:
                 if factor_interes(salida[-1], i) > interes:
@@ -26,4 +27,3 @@ def enlazar():
     salida.append(slides[0])
 
     return salida
-    

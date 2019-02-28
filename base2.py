@@ -4,9 +4,14 @@ import random as r
 from heapq import merge
 
 #input = 'a_example.txt'
-input = 'b_lovely_landscapes.txt'
+#input = 'b_lovely_landscapes.txt'
+#input = 'c_memorable_moments.txt'
+input = 'd_pet_pictures.txt'
 #output_file = 'a_example.out'
-output_file = 'b_lovely_landscapes.out'
+#output_file = 'b_lovely_landscapes2.out'
+#output_file = 'c_memorable_moments.out'
+output_file = 'd_pet_pictures.out'
+
 
 interes = 1
 
@@ -42,7 +47,7 @@ def factor_interes(slide1, slide2):
 
     return min([esta, len(slide1[1])-esta, len(slide2[1])-esta])
 
-
+"""
 def enlazar():
     #global slides
     salida = []
@@ -53,7 +58,7 @@ def enlazar():
         encontrado = False
         while i < len(slides) and not encontrado:
             if factor_interes(salida[-1], slides[i]) >= interes:
-                print("%s\n" % len(slides))
+                #print(len(slides))
                 salida.append(slides[i])
                 slides.remove(slides[i])
                 encontrado = True
@@ -62,7 +67,21 @@ def enlazar():
 
     salida.append(slides[0])
     return salida
+"""
 
+def enlazar():
+    #global slides
+    salida = []
+    salida.append(slides.pop(r.randint(0, len(slides)-1)))
+    while len(slides) > 1:
+        i = r.randint(0, len(slides)-1)
+        j = slides[i]
+
+        salida.append(j)
+        del slides[i]
+
+    salida.append(slides[0])
+    return salida
 
 
 def matching(photo1, photo2):
@@ -75,16 +94,18 @@ def matching(photo1, photo2):
 
 def emparejar():
     maximo = 99999999
-    numrandom= r.randint(0,len(V)-1)
+    numrandom = 0
     random = V.pop(numrandom)
     elegida = V.pop()
     #numeroelegida = 0
+    '''
     for i in range(0, len(V)-1):
         numero = matching(random, V[i])
         if numero < maximo:
             maximo = numero
             V.append(elegida)
             elegida = V.pop(i)
+            '''
 
 
     final = []
