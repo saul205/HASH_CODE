@@ -5,25 +5,25 @@ import os
 
 #input = 'b_lovely_landscapes.txt'
 #input = 'c_memorable_moments.txt'
-input = 'd_pet_pictures.txt'
-#input = 'e_shiny_selfies.txt'
+#input = 'd_pet_pictures.txt'
+input = 'e_shiny_selfies.txt'
 
 #output = 'b_example.out'
 #output = 'c_example.out'
-output = 'd_example.out'
-#output = 'e_example.out'
+#output = 'd_example.out'
+output = 'e_example.out'
 
 
 import random as r
 
-def factor_interes(slide1, slide2):
+def factor_interes(slide1, slide2, interes):
     encontrados = 0
     encontrado = False
     i = 0
     while i < slide1[1] and not encontrado:
         if slide1[2][i] in slide2[2]:
             encontrados += 1
-            if encontrados >= 3:
+            if encontrados >= interes:
                 encontrado = True
         i += 1
     return encontrado
@@ -37,20 +37,20 @@ def enlazar():
     while len(slides) > 1:
             encontrado = False
             i = 0
-            
+            interes = 8
             while i < len(slides) and not encontrado:
 
-                if factor_interes(salida[-1], slides[i]):
+                if factor_interes(salida[-1], slides[i], interes):
                     salida.append(slides[i])
                     del slides[i]
                     encontrado = True
-                    if len(slides)% 500:
-                        print(len(slides))
+
+                    print(len(slides))
 
                 i += 1
 
             if not encontrado:
-                salida.append(slides.pop())
+                    salida.append(slides.pop())
 
     salida.append(slides[0])
 
@@ -68,15 +68,15 @@ def burbuja(lista):
                           lista[j] = aux
                   j = j + 1
           i = i + 1
-    
+
 def emparejar():
-    
+
     a = V[0][0] + ' ' + V[len(V)-1][0]
     V[0][2].extend([element for element in V[len(V)-1][2] if element not in V[0][2]])
     slides.append([a,len(V[0][2]),V[0][2]])
     del V[len(V)-1]
     del V[0]
-    
+
 with open(input) as f_in:
 
     # read first line
@@ -113,8 +113,13 @@ with open(input) as f_in:
         tmp.append(tmptags)
 
         if element[0] is 'V':
+            if tmp[1] > 18:
 
-            V.append(tmp)
+                V.append(tmp)
+
+            else:
+
+                V.insert(0, tmp)
 
         elif element[0] is 'H':
 
@@ -137,7 +142,7 @@ def testoutput(salida):
         f_out.write('\n')
 
         for item in salida:
-            
+
             f_out.write(item[0])
             f_out.write("\n")
 
@@ -148,7 +153,7 @@ def testoutput(salida):
 def main():
     print(len(slides))
     '''if len(V) > 2:
-        
+
         burbuja(V)
     '''
     print("emparejando")

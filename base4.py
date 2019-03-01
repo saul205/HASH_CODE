@@ -10,14 +10,14 @@ from heapq import merge
 #input = 'b_lovely_landscapes.txt'
 #output_file = 'b_lovely_landscapes2.out'
 
-#input = 'c_memorable_moments.txt'
-#output_file = 'c_memorable_moments.out'
+input = 'c_memorable_moments.txt'
+output_file = 'c_memorable_moments.out'
 
 #input = 'd_pet_pictures.txt'
 #output_file = 'd_pet_pictures.out'
 
 input = 'e_shiny_selfies.txt'
-output_file = 'e_shiny_selfies.out'
+#output_file = 'e_shiny_selfies.out'
 
 
 interes = 1
@@ -46,7 +46,7 @@ with open(input) as f_in:
             slides.append(tmp)
         integercounter = integercounter + 1
     del matrix
-    mediatags = (mediatags//numfotos)//2
+    mediatags = (mediatags//numfotos[0])//2
 
 
 def factor_interes(slide1, slide2):
@@ -154,6 +154,7 @@ def testoutput():
 
 def main():
     #Codigo aqui
+    '''
     start = time.clock()
     print((start - start))
 
@@ -174,6 +175,8 @@ def main():
 
     end3 = time.clock()
     print("%s \n" % (end3 - end2))
+    '''
+    print(mediatags)
     #testoutput()
 
 
