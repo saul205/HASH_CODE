@@ -75,7 +75,8 @@ def matching(photo1, photo2):
 
 def emparejar():
     maximo = 99999999
-    numrandom= r.randint(0,len(V)-1)
+    #numrandom= r.randint(0,len(V)-1)
+    numrandom = 0
     random = V.pop(numrandom)
     elegida = V.pop()
     #numeroelegida = 0

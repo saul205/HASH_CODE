@@ -4,13 +4,19 @@ import random as r
 from heapq import merge
 
 #input = 'a_example.txt'
-#input = 'b_lovely_landscapes.txt'
-#input = 'c_memorable_moments.txt'
-input = 'd_pet_pictures.txt'
 #output_file = 'a_example.out'
+
+#input = 'b_lovely_landscapes.txt'
 #output_file = 'b_lovely_landscapes2.out'
+
+#input = 'c_memorable_moments.txt'
 #output_file = 'c_memorable_moments.out'
-output_file = 'd_pet_pictures.out'
+
+#input = 'd_pet_pictures.txt'
+#output_file = 'd_pet_pictures.out'
+
+input = 'e_shiny_selfies.txt'
+output_file = 'e_shiny_selfies.out'
 
 
 interes = 1
@@ -94,9 +100,9 @@ def matching(photo1, photo2):
 
 def emparejar():
     maximo = 99999999
-    numrandom = 0
+    numrandom = r.randint(0,len(V)-1)
     random = V.pop(numrandom)
-    elegida = V.pop()
+    elegida = V.pop(r.randint(0,len(V)-1))
     #numeroelegida = 0
     '''
     for i in range(0, len(V)-1):

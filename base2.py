@@ -4,13 +4,13 @@ import random as r
 from heapq import merge
 
 #input = 'a_example.txt'
-#input = 'b_lovely_landscapes.txt'
+input = 'b_lovely_landscapes.txt'
 #input = 'c_memorable_moments.txt'
-input = 'd_pet_pictures.txt'
+#input = 'd_pet_pictures.txt'
 #output_file = 'a_example.out'
-#output_file = 'b_lovely_landscapes2.out'
+output_file = 'b_lovely_landscapes2.out'
 #output_file = 'c_memorable_moments.out'
-output_file = 'd_pet_pictures.out'
+#output_file = 'd_pet_pictures.out'
 
 
 interes = 1
@@ -115,6 +115,18 @@ def emparejar():
     return final
 
 
+def emparejar2(test):
+    numrandom = r.randint(0,len(test)-1)
+    random = test.pop(numrandom)
+    elegida = test.pop()
+    #numeroelegida = 0
+
+    final = []
+    final.append(random[0] + ' ' + elegida[0])
+    final.append(list(merge(random[1], elegida[1])))
+
+    return final
+
 
 def output(res):
     with open(output_file, 'w') as f_out:
@@ -145,6 +157,7 @@ def main():
         slides.append(emparejar())
 
     output_value = enlazar()
+    output_value2 = emparejar2(output_value)
 
     output(output_value)
     #testoutput()
