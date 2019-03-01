@@ -3,6 +3,7 @@ import time
 import random as r
 from heapq import merge
 
+
 #input = 'input/a_example.txt'
 #output_file = 'output/a_example.out'
 
@@ -19,7 +20,6 @@ output_file = 'output/b_lovely_landscapes.out'
 #output_file = 'output/e_shiny_selfies.out'
 
 
-interes = 1
 
 with open(input) as f_in:
     # read first line
@@ -62,22 +62,6 @@ def enlazar():
     salida = []
     #salida.append(slides.pop(r.randint(0, len(slides)-1)))
     salida.append(slides.pop(0))
-
-    '''
-    while len(slides) > 1:
-        i = 0
-        encontrado = False
-        while i < len(slides) and not encontrado:
-            if factor_interes(salida[-1], slides[i]) >= interes:
-                print("%s\n" % len(slides))
-                salida.append(slides[i])
-                slides.remove(slides[i])
-                encontrado = True
-
-            i+=1
-
-    salida.append(slides[0])
-    '''
 
 
     while len(slides) > 0:
