@@ -1,4 +1,5 @@
 import os
+import time
 import numpy as np
 import random as r
 from heapq import merge
@@ -7,14 +8,17 @@ from heapq import merge
 #input = 'a_example.txt'
 #output_file = 'a_example.out'
 
-#input = 'b_lovely_landscapes.txt'
-#output_file = 'b_lovely_landscapes2.out'
+input = 'b_lovely_landscapes.txt'
+output_file = 'b_lovely_landscapes.out'
 
 #input = 'c_memorable_moments.txt'
 #output_file = 'c_memorable_moments.out'
 
-input = 'd_pet_pictures.txt'
-output_file = 'd_pet_pictures.out'
+#input = 'd_pet_pictures.txt'
+#output_file = 'd_pet_pictures.out'
+
+#input = 'e_shiny_selfies.txt'
+#output_file = 'e_shiny_selfies.out'
 
 
 interes = 1
@@ -51,18 +55,20 @@ def factor_interes(slide1, slide2):
 
     return min([esta, len(slide1[1])-esta, len(slide2[1])-esta])
 
-"""
+
 def enlazar():
     #global slides
     salida = []
-    salida.append(slides.pop(r.randint(0, len(slides)-1)))
+    #salida.append(slides.pop(r.randint(0, len(slides)-1)))
+    salida.append(slides.pop(0))
 
+    '''
     while len(slides) > 1:
         i = 0
         encontrado = False
         while i < len(slides) and not encontrado:
             if factor_interes(salida[-1], slides[i]) >= interes:
-                #print(len(slides))
+                print("%s\n" % len(slides))
                 salida.append(slides[i])
                 slides.remove(slides[i])
                 encontrado = True
@@ -70,46 +76,48 @@ def enlazar():
             i+=1
 
     salida.append(slides[0])
+    '''
+
+
+    while len(slides) > 0:
+        maximo = 0
+        contador = 0
+        aux = 0
+        for i in range(len(slides)):
+            if len(slides[i][1]) < maximo:
+                continue
+            numero = matching(salida[contador], slides[i])
+            if numero > maximo:
+                maximo = numero
+                aux = i
+        salida.append(slides.pop(aux))
+        contador+=1
+        print(len(slides))
+
+
     return salida
-"""
-
-def enlazar():
-    #global slides
-    salida = []
-    salida.append(slides.pop(r.randint(0, len(slides)-1)))
-    while len(slides) > 1:
-        i = r.randint(0, len(slides)-1)
-        j = slides[i]
-
-        salida.append(j)
-        del slides[i]
-
-    salida.append(slides[0])
-    return salida
-
 
 def matching(photo1, photo2):
     matchingsi = 0
-    for i in range(len(photo1[1])):
-        for j in range(len(photo2 [1])):
-            if(photo1[1][i] == photo2[1][j]):
-                matchingsi+= 1
+    for i in photo1[1]:
+        if i in photo2[1]:
+            matchingsi+= 1
+            continue
     return matchingsi
 
 def emparejar():
     maximo = 99999999
+    #numrandom= r.randint(0,len(V)-1)
     numrandom = 0
     random = V.pop(numrandom)
     elegida = V.pop()
     #numeroelegida = 0
-    '''
-    for i in range(0, len(V)-1):
+    for i in range(len(V)):
         numero = matching(random, V[i])
         if numero < maximo:
             maximo = numero
             V.append(elegida)
             elegida = V.pop(i)
-            '''
 
 
     final = []
@@ -144,13 +152,23 @@ def testoutput():
 
 def main():
     #Codigo aqui
+    start = time.clock()
 
     while len(V) >= 1:
         slides.append(emparejar())
 
+    end1 = time.clock()
+    print((end1 - start))
+
     output_value = enlazar()
 
-    output(output_value2)
+    end2 = time.clock()
+    print("%s \n" % (end2 - end1))
+
+    output(output_value)
+
+    end3 = time.clock()
+    print("%s \n" % (end3 - end2))
     #testoutput()
 
 
