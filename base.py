@@ -2,16 +2,20 @@ import os
 #import numpy as np
 
 
+#input = 'input/a_example.txt'
+#output_file = 'output/a_example.out'
 
-#input = 'b_lovely_landscapes.txt'
-#input = 'c_memorable_moments.txt'
-#input = 'd_pet_pictures.txt'
-input = 'e_shiny_selfies.txt'
+input = 'input/b_lovely_landscapes.txt'
+output_file = 'output/b_lovely_landscapes.out'
 
-#output = 'b_example.out'
-#output = 'c_example.out'
-#output = 'd_example.out'
-output = 'e_example.out'
+#input = 'input/c_memorable_moments.txt'
+#output_file = 'output/c_memorable_moments.out'
+
+#input = 'input/d_pet_pictures.txt'
+#output_file = 'output/d_pet_pictures.out'
+
+#input = 'input/e_shiny_selfies.txt'
+#output_file = 'output/e_shiny_selfies.out'
 
 
 import random as r

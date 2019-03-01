@@ -1,23 +1,22 @@
 import os
 import time
-import numpy as np
 import random as r
 from heapq import merge
 
-#input = 'a_example.txt'
-#output_file = 'a_example.out'
+#input = 'input/a_example.txt'
+#output_file = 'output/a_example.out'
 
-#input = 'b_lovely_landscapes.txt'
-#output_file = 'b_lovely_landscapes2.out'
+input = 'input/b_lovely_landscapes.txt'
+output_file = 'output/b_lovely_landscapes.out'
 
-input = 'c_memorable_moments.txt'
-output_file = 'c_memorable_moments.out'
+#input = 'input/c_memorable_moments.txt'
+#output_file = 'output/c_memorable_moments.out'
 
-#input = 'd_pet_pictures.txt'
-#output_file = 'd_pet_pictures.out'
+#input = 'input/d_pet_pictures.txt'
+#output_file = 'output/d_pet_pictures.out'
 
-input = 'e_shiny_selfies.txt'
-#output_file = 'e_shiny_selfies.out'
+#input = 'input/e_shiny_selfies.txt'
+#output_file = 'output/e_shiny_selfies.out'
 
 
 interes = 1
