@@ -1,7 +1,6 @@
 import os
 import time
 import random as r
-from heapq import merge
 
 
 #input = 'input/a_example.txt'
@@ -123,24 +122,35 @@ def matching(photo1, photo2):
             continue
     return matchingsi
 
+def merge_list(list1,list2):
+    final = []
+    for elem in list1:
+        if elem in list2:
+            dict[elem]-=1
+            continue
+        final.append(elem)
+    for elem in list2:
+        final.append(elem)
+    return final
+
 def emparejar():
     maximo = 99999999
     #numrandom= r.randint(0,len(V)-1)
     numrandom = 0
     random = V.pop(numrandom)
     elegida = V.pop()
-    #numeroelegida = 0
     for i in range(len(V)):
         numero = matching(random, V[i])
         if numero < maximo:
             maximo = numero
             V.append(elegida)
             elegida = V.pop(i)
-
+        if maximo == 0:
+            break
 
     final = []
     final.append(random[0] + ' ' + elegida[0])
-    final.append(list(merge(random[1], elegida[1])))
+    final.append(merge_list(random[1], elegida[1]))
 
     return final
 
