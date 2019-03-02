@@ -5,19 +5,19 @@ from heapq import merge
 
 
 #input = 'input/a_example.txt'
-#output_file = 'output/a_example.out'
+#output_file = 'output_a.out'
 
 input = 'input/b_lovely_landscapes.txt'
-output_file = 'output/b_lovely_landscapes.out'
+output_file = 'output_b.out'
 
 #input = 'input/c_memorable_moments.txt'
-#output_file = 'output/c_memorable_moments.out'
+#output_file = 'output_c.out'
 
 #input = 'input/d_pet_pictures.txt'
-#output_file = 'output/d_pet_pictures.out'
+#output_file = 'output_d.out'
 
 #input = 'input/e_shiny_selfies.txt'
-#output_file = 'output/e_shiny_selfies.out'
+#output_file = 'output_e.out'
 
 
 
@@ -45,6 +45,28 @@ with open(input) as f_in:
     del matrix
 
 
+class ProgressBar:
+    def __init__(self,maxvalue):
+        if not isinstance(maxvalue, int):
+            raise TypeError
+        self.percent = 0.0
+        self.value = 0
+        self.max = maxvalue
+        print('\rProgress . . . 0.0% | {}/{}'.format(self.value,self.max), end='', flush=True)
+    def update(self, newvalue):
+        if not isinstance(newvalue, int):
+            raise TypeError
+        self.value = newvalue
+        self.percent = newvalue*100/self.max
+        if self.percent < 100.0:
+            print('\rProgress . . . {:3.2f}% | {:.0f}/{:.0f}'.format(self.percent,self.value,self.max), end='', flush=True)
+        else:
+            self.percent = 100.0
+            print('\rProgress . . . {:3.0f}% | {:.0f}/{:.0f}     '.format(self.percent,self.value,self.max), end='\n')
+            print("Done.")
+        return self.percent
+
+
 def factor_interes(slide1, slide2):
     esta = 0
     for i in slide1[1]:
@@ -55,14 +77,14 @@ def factor_interes(slide1, slide2):
 
 
 def enlazar():
-    #global slides
     salida = []
-    #salida.append(slides.pop(r.randint(0, len(slides)-1)))
     salida.append(slides.pop(0))
+
+    PB = ProgressBar(numfotos[0])
+    contador = 0
 
     while len(slides) > 0:
         maximo = 0
-        contador = 0
         aux = 0
         for i in range(len(slides)):
             if len(slides[i][1]) < maximo:
@@ -73,7 +95,7 @@ def enlazar():
                 aux = i
         salida.append(slides.pop(aux))
         contador+=1
-        print(len(slides))
+        PB.update(numfotos[0] - len(slides))
 
 
     return salida
@@ -116,6 +138,7 @@ def output(res):
             #f_out.write("%s " % item[0])
             f_out.write(item[0])
             f_out.write("\n")
+
 
 
 def testoutput():

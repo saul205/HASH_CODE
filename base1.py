@@ -5,19 +5,19 @@ from heapq import merge
 
 
 #input = 'input/a_example.txt'
-#output_file = 'output/a_example.out'
+#output_file = 'output_a.out'
 
-input = 'input/b_lovely_landscapes.txt'
-output_file = 'output/b_lovely_landscapes.out'
+#input = 'input/b_lovely_landscapes.txt'
+#output_file = 'output_b.out'
 
 #input = 'input/c_memorable_moments.txt'
-#output_file = 'output/c_memorable_moments.out'
+#output_file = 'output_c.out'
 
-#input = 'input/d_pet_pictures.txt'
-#output_file = 'output/d_pet_pictures.out'
+input = 'input/d_pet_pictures.txt'
+output_file = 'output_d.out'
 
 #input = 'input/e_shiny_selfies.txt'
-#output_file = 'output/e_shiny_selfies.out'
+#output_file = 'output_e.out'
 
 
 
@@ -29,15 +29,21 @@ with open(input) as f_in:
         matrix.append([x for x in line.split()])
     V = []
     slides = []
+    dict = {}
     integercounter = 0
-    mediatags = 0
+    tags = 0
     for element in matrix:
-        mediatags = mediatags + int(element[1])
+        tags = tags + int(element[1])
         tmp = []
         tmptags = []
         tmp.append(str(integercounter))
         for i in range(int(element[1])):
             tmptags.append(element[2+i])
+        for tag in tmptags:
+            if tag not in dict:
+                dict[tag] = 1
+            else:
+                dict[tag] += 1
         tmp.append(tmptags)
         if element[0] is 'V':
             V.append(tmp)
@@ -45,7 +51,27 @@ with open(input) as f_in:
             slides.append(tmp)
         integercounter = integercounter + 1
     del matrix
-    mediatags = (mediatags//numfotos[0])//2
+
+class ProgressBar:
+    def __init__(self,maxvalue):
+        if not isinstance(maxvalue, int):
+            raise TypeError
+        self.percent = 0.0
+        self.value = 0
+        self.max = maxvalue
+        print('\rProgress . . . 0.0% | {}/{}'.format(self.value,self.max), end='', flush=True)
+    def update(self, newvalue):
+        if not isinstance(newvalue, int):
+            raise TypeError
+        self.value = newvalue
+        self.percent = newvalue*100/self.max
+        if self.percent < 100.0:
+            print('\rProgress . . . {:3.2f}% | {:.0f}/{:.0f}'.format(self.percent,self.value,self.max), end='', flush=True)
+        else:
+            self.percent = 100.0
+            print('\rProgress . . . {:3.0f}% | {:.0f}/{:.0f}     '.format(self.percent,self.value,self.max), end='\n')
+            print("Done.")
+        return self.percent
 
 
 def factor_interes(slide1, slide2):
@@ -56,17 +82,15 @@ def factor_interes(slide1, slide2):
 
     return min([esta, len(slide1[1])-esta, len(slide2[1])-esta])
 
-
 def enlazar():
-    #global slides
     salida = []
-    #salida.append(slides.pop(r.randint(0, len(slides)-1)))
     salida.append(slides.pop(0))
 
+    PB = ProgressBar(numfotos[0])
+    contador = 0
 
     while len(slides) > 0:
         maximo = 0
-        contador = 0
         aux = 0
         for i in range(len(slides)):
             if len(slides[i][1]) < maximo:
@@ -77,8 +101,7 @@ def enlazar():
                 aux = i
         salida.append(slides.pop(aux))
         contador+=1
-        print(len(slides))
-
+        PB.update(numfotos[0] - len(slides))
 
     return salida
 
@@ -111,8 +134,6 @@ def emparejar():
 
     return final
 
-
-
 def output(res):
     with open(output_file, 'w') as f_out:
         f_out.write("%s\n" % len(res))
@@ -121,15 +142,9 @@ def output(res):
             f_out.write(item[0])
             f_out.write("\n")
 
-
-
-def testoutput():
-    with open(output, 'w') as f_out:
-        for item in V:
-            for subitem in item:
-                f_out.write("%s " % subitem)
-            f_out.write("\n")
-        for item in slides:
+def testoutput(mtx):
+    with open("output_test.txt", 'w') as f_out:
+        for item in mtx:
             for subitem in item:
                 f_out.write("%s " % subitem)
             f_out.write("\n")
@@ -137,30 +152,47 @@ def testoutput():
 
 def main():
     #Codigo aqui
-    '''
-    start = time.clock()
-    print((start - start))
+    print("Starting . . .\n")
 
+    start = time.clock()
+
+    tot = len(V)
+    PB = ProgressBar(tot)
     while len(V) >= 1:
         slides.append(emparejar())
-        if len(V)%10 == 0:
-            print(len(V))
+        PB.update(tot - len(V))
+
+
 
     end1 = time.clock()
     print((end1 - start))
 
+    counter1 = 0
+    counter2 = 0
+    PB = ProgressBar(tags)
+    for elem in slides:
+        for tag in elem[1]:
+            counter2+=1
+            PB.update(counter2)
+            if dict.get(tag) == 1:
+                elem[1].remove(tag)
+                counter1+=1
+
+    #testoutput(slides)
+    print(counter)
+
+
     output_value = enlazar()
 
     end2 = time.clock()
-    print("%s \n" % (end2 - end1))
+    print((end2 - end1))
 
     output(output_value)
 
     end3 = time.clock()
-    print("%s \n" % (end3 - end2))
-    '''
-    print(mediatags)
-    #testoutput()
+    print((end3 - end2))
+
+    print(tags)
 
 
 if __name__ == '__main__':
