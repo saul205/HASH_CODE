@@ -13,11 +13,11 @@ from heapq import merge
 #input = 'input/c_memorable_moments.txt'
 #output_file = 'output_c.out'
 
-input = 'input/d_pet_pictures.txt'
-output_file = 'output_d.out'
+#input = 'input/d_pet_pictures.txt'
+#output_file = 'output_d.out'
 
-#input = 'input/e_shiny_selfies.txt'
-#output_file = 'output_e.out'
+input = 'input/e_shiny_selfies.txt'
+output_file = 'output_e.out'
 
 
 
@@ -73,7 +73,6 @@ class ProgressBar:
             print("Done.")
         return self.percent
 
-
 def factor_interes(slide1, slide2):
     esta = 0
     for i in slide1[1]:
@@ -84,10 +83,21 @@ def factor_interes(slide1, slide2):
 
 def enlazar():
     salida = []
+    for elem in slides:
+        if len(elem[1]) == 0:
+            salida.append(elem)
+            slides.remove(elem)
+            print("+1")
+
+
+    tot = len(slides)
+    PB = ProgressBar(tot)
     salida.append(slides.pop(0))
 
-    PB = ProgressBar(numfotos[0])
-    contador = 0
+    if len(salida) < 1:
+        contador = len(salida)-1
+    else:
+        contador = 0
 
     while len(slides) > 0:
         maximo = 0
@@ -101,7 +111,7 @@ def enlazar():
                 aux = i
         salida.append(slides.pop(aux))
         contador+=1
-        PB.update(numfotos[0] - len(slides))
+        PB.update(tot - len(slides))
 
     return salida
 
@@ -134,6 +144,25 @@ def emparejar():
 
     return final
 
+def cleantags(mtx):
+    print("\nCleaning tags . . .")
+    print("Total tags: {}".format(tags))
+
+    counter1 = 0
+    counter2 = 0
+    PB = ProgressBar(tags)
+    for elem in mtx:
+        borrados = 0
+        for i in range(len(elem[1])):
+            counter2+=1
+            PB.update(counter2)
+            if dict.get(elem[1][i-borrados]) == 1:
+                elem[1].pop(i-borrados)
+                counter1+=1
+                borrados+=1
+
+    print(counter1)
+
 def output(res):
     with open(output_file, 'w') as f_out:
         f_out.write("%s\n" % len(res))
@@ -149,50 +178,51 @@ def testoutput(mtx):
                 f_out.write("%s " % subitem)
             f_out.write("\n")
 
-
 def main():
     #Codigo aqui
-    print("Starting . . .\n")
+    print("\nStarting . . .")
+    print("Input File: {}".format(input))
 
-    start = time.clock()
+    allV = False
 
     tot = len(V)
-    PB = ProgressBar(tot)
-    while len(V) >= 1:
-        slides.append(emparejar())
-        PB.update(tot - len(V))
+    if tot > 0:
+        if len(slides) == 0:
+            print("Only vertical photos detected!")
+            allV = True
+            t_time = time.clock()
+            cleantags(V)
+            print((time.clock() - t_time))
+        t_time = time.clock()
+        print("\nMixing Vertical photos . . .")
+        PB = ProgressBar(tot)
+        while len(V) >= 1:
+            slides.append(emparejar())
+            PB.update(tot - len(V))
+        print((time.clock() - t_time))
+    else:
+        print("\nMixing Vertical photos . . .")
+        print("0 Detected.")
 
 
+    if not allV:
+        t_time = time.clock()
+        cleantags(slides)
+        print((time.clock() - t_time))
 
-    end1 = time.clock()
-    print((end1 - start))
+    t_time = time.clock()
 
-    counter1 = 0
-    counter2 = 0
-    PB = ProgressBar(tags)
-    for elem in slides:
-        for tag in elem[1]:
-            counter2+=1
-            PB.update(counter2)
-            if dict.get(tag) == 1:
-                elem[1].remove(tag)
-                counter1+=1
-
-    #testoutput(slides)
-    print(counter)
-
-
+    print("\nCreating Slideshow. . .")
     output_value = enlazar()
 
-    end2 = time.clock()
-    print((end2 - end1))
+    print((time.clock() - t_time))
 
+    print("\nExporting file. . .")
     output(output_value)
 
-    end3 = time.clock()
-    print((end3 - end2))
+    print("Done.")
+    time.sleep(2)
 
-    print(tags)
 
 
 if __name__ == '__main__':
